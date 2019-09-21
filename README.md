@@ -2,23 +2,22 @@ A node express server for a shopping cart.
 
 ## Build Instructions
 
-Install nodenv and node-build (or use any other way to put correct version of node on PATH):
+* Install nodenv and node-build (or use any other way to put correct version of node on PATH) - https://github.com/nodenv/nodenv#installation and https://github.com/nodenv/node-build#installation.
 
-* https://github.com/nodenv/nodenv#installation
-* https://github.com/nodenv/node-build#installation
+* Install jq package using homebrew, apt-get, yum etc. (optional, but useful).
 
-Then run this:
+* Then run this:
 
 ```
-nodenv install $(cat .node-version) # or equivalent
+nodenv install $(cat .node-version) # or non-nodenv equivalent
 npm install
 npm start
 ```
 
-To access the API:
+* To access the API:
 
 ```
-curl --verbose http://localhost:8080
+curl --verbose http://localhost:8080/cart | jq .
 ```
 
 ## IDE

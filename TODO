@@ -1,6 +1,4 @@
-* Install express.
-* Configure typescript.
-* Lint etc.?
+* tslint.
 * VSC IDE plugins.
 * Design API.
 * Add item.
@@ -9,6 +7,9 @@
 * Remove item.
 * Optimization endpoint.
 * Check test coverage.
+* Configure nodemon?
+* Configure production build (with tsc).
+* Add route for /
 * Design notes.
   - authentication.
   - CSRF protection.
