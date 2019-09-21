@@ -1,4 +1,4 @@
-A node express server for a shopping cart.
+A shopping-cart API implemented using [express](https://expressjs.com/) and [Typescript](https://www.typescriptlang.org/).
 
 ## Build Instructions
 
@@ -6,7 +6,7 @@ A node express server for a shopping cart.
 
 * Install jq package using homebrew, apt-get, yum etc. (optional, but useful).
 
-* Then run this:
+* Run this to install the right version of nodejs and start the server:
 
 ```
 nodenv install $(cat .node-version) # or non-nodenv equivalent
@@ -22,7 +22,7 @@ curl --verbose http://localhost:8080/cart | jq .
 
 ## IDE
 
-* [Visual Studio Code](https://code.visualstudio.com/) (VSC)
+* [Visual Studio Code](https://code.visualstudio.com/).
 
 ## Design
 
