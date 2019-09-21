@@ -7,7 +7,6 @@
 * Remove item.
 * Optimization endpoint.
 * Check test coverage.
-* Configure nodemon?
 * Configure production build (with tsc).
 * Add route for /
 * Design notes.
