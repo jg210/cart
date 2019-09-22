@@ -28,13 +28,16 @@ let cart: Cart = {
     price: 298
   }
 };
-let nextId = findNextId(cart);
 
-function isValidIdString(idString: string): boolean {
-  return !!idString.match(/^[1-9]*[0-9]$/);
+function isNonNegativeIntegerString(string: string): boolean {
+  return !!string.match(/^[1-9]*[0-9]$/);
 }
 
-function findNextId(cart: Cart) {
+function isValidIdString(idString: string): boolean {
+  return isNonNegativeIntegerString(idString);
+}
+
+function findNextId(cart: Cart): number {
   const ids = Object.keys(cart).map(key => parseInt(key));
   const maxId = _.max(ids);
   return (maxId === undefined) ? 0 : maxId + 1;
@@ -49,18 +52,40 @@ function cartJson(): CartJson {
   };
 }
 
+function badRequest(res: express.Response, message: string): void {
+  res.status(BAD_REQUEST);
+  res.send(message);
+}
+
 function handleListAll(res: express.Response): void {
   res.json(cartJson());
 }
 
+let nextId = findNextId(cart);
+
 function handleAddItem(
     req: express.Request,
     res: express.Response): void {
-  // TODO handle missing item in json.
+  const item = req.body.item;
+  if (!item) {
+    badRequest(res, "item key missing");
+    return;
+  }
   const title = req.body.item.title;
   const priceString = req.body.item.price;
-  const price = parseInt(priceString); // TODO handle parsing errors.
-  // TODO handle negative price.
+  if (!title) {
+    badRequest(res, "title missing");
+    return;
+  }
+  if (!priceString) {
+    badRequest(res, "price missing");
+    return;
+  }
+  if (!isNonNegativeIntegerString(priceString)) {
+    badRequest(res, "non-negative integer price expected");
+    return;
+  }
+  const price = parseInt(priceString);
   const cartItem: CartItem = {
     title, price
   };
@@ -83,8 +108,7 @@ function handleItemDelete(
     res: express.Response): void {
   const idString = req.params.itemId;
   if (!isValidIdString(idString)) {
-    res.status(BAD_REQUEST);
-    res.send(`invalid id: ${idString}`);
+    badRequest(res, `invalid id: ${idString}`);
     return;
   }
   const id = parseInt(idString);
