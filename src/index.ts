@@ -1,6 +1,5 @@
 import * as express from 'express';
 
-const app = express();
 const port = 8080;
 const prefix = "/cart";
 
@@ -15,8 +14,13 @@ const cart = {
   }
 }
 
+const router = express.Router();
+
+router.route('/').get((_, res) => res.send(cart));
+
+const app = express();
+app.use(prefix, router);
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
 });
 
-app.get(`${prefix}`, (_, res) => res.send(cart));
