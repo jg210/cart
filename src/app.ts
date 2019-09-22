@@ -13,6 +13,7 @@ import {
   badRequest,
   isNonNegativeIntegerString
 } from './util';
+import * as _ from 'lodash';
 
 const prefix = "/cart";
 
@@ -92,18 +93,8 @@ function handleItemDelete(
   });
 }
 
-export function createApp(): express.Express {
-
-  const cart: Cart = {
-    1: {
-      title: "fork handles",
-      price: 999
-    },
-    2: {
-      title: "plug",
-      price: 298
-    }
-  };
+export function createApp(intialCart: Cart): express.Express {
+  const cart = _.cloneDeep(intialCart);
   const idIterator = idGenerator(cart);
   const router = express.Router();
   router.route('/')

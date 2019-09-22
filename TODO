@@ -1,5 +1,6 @@
-* Configure jest.
-* Add supertest.
+* Add item API require price to be a string.
+* Test for specific error messages in app.test.js.
+  - supertest is returning {} in result.body...
 * Add item.
 * List items.
 * Clear basket.
