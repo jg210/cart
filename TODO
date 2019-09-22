@@ -1,16 +1,14 @@
 * Test for specific error messages in app.test.js.
-  - supertest is returning {} in result.body...
 * List items.
 * Clear basket.
 * Remove item.
 * Optimization endpoint.
 * Check test coverage.
-* Configure more eslint rules.
 * Configure production build (with tsc).
 * eslint VSC plugin has stopped working.
-* Add route for /
+* Add route for / redirecting to /cart.
 * Implement per-item GET requests.
-* Refactor database operations into a class.
+* Refactor cart database into a class.
 * Remove X-Powered-By HTTP headers from responses.
 * Design notes.
   - authentication.
