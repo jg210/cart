@@ -3,7 +3,7 @@ import * as express from 'express';
 const port = 8080;
 const prefix = "/cart";
 
-const cart: Cart = {
+let cart: Cart = {
   1: {
     title: "fork handles",
     price: 999
@@ -36,9 +36,21 @@ function cartJson(): CartJson {
   }
 }
 
+function handleListAll(res: express.Response) {
+  return res.json(cartJson())
+}
+
+function handleDeleteAll(res: express.Response) {
+  cart = {};
+  // Return empty JSON in case want to return extra information later.
+  return res.json({})
+}
+
 const router = express.Router();
 
-router.route('/').get((_, res) => res.json(cartJson()));
+router.route('/')
+  .get((_, res) => handleListAll(res))
+  .delete((_, res) => handleDeleteAll(res));
 
 const app = express();
 app.use(prefix, router);
