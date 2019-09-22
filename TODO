@@ -9,6 +9,7 @@
 * eslint VSC plugin has stopped working.
 * Add route for /
 * Implement per-item GET requests.
+* Refactor database operations into a class.
 * Remove X-Powered-By HTTP headers from responses.
 * Design notes.
   - authentication.
