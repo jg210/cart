@@ -146,4 +146,35 @@ describe("the API", () => {
 
   });
 
+  describe("has a remove one item endpoint", () => {
+
+    it("removes one item", async () => {
+      const items = [
+        { title: "apple", price: 1},
+        { title: "orange", price: 2},
+        { title: "pear", price: 3}
+      ];
+      addAllToEmptyCart(items);
+      const result1 = await agent.delete("/cart/1");
+      expect(result1.status).toBe(OK);
+      await expectItems({
+        "0": {"price": 1, "title": "apple"},
+        "2": {"price": 3, "title": "pear"}
+      });
+      const result2 = await agent.delete("/cart/1");
+      expect(result2.status).toBe(NOT_FOUND);
+    });
+
+    it("handles removal of absent item", async () => {
+      const result = await agent.delete("/cart/1");
+      expect(result.status).toBe(NOT_FOUND);
+    });
+
+    it("handles deletion of item with non-numeric id", async () => {
+      const result = await agent.delete("/cart/abc");
+      expect(result.status).toBe(BAD_REQUEST);
+    });
+
+  });
+
 });
