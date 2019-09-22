@@ -11,7 +11,6 @@ import {
 } from './cart';
 import {
   badRequest,
-  isNonNegativeIntegerString
 } from './util';
 import * as _ from 'lodash';
 

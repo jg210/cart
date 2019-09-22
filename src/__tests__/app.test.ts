@@ -14,6 +14,25 @@ describe("the API", () => {
     return result.body.items;
   }
 
+  async function expectItems(items: CartItem[]): Promise<void> {
+    const actualItems = await getItems(agent);
+    items.forEach(async (expectedItem, i) => {
+      expect(actualItems[i].title).toStrictEqual(expectedItem.title);
+      expect(actualItems[i].price).toStrictEqual(expectedItem.price);
+    });
+  }
+
+  async function addAllToEmptyCart(items: CartItem[]): Promise<void> {
+    items.forEach(async expectedItem => {
+      const request = agent.post("/cart");
+      const { title, price } = expectedItem;
+      request.send({ item: { price, title }}); 
+      const result = await request;
+      expect(result.status).toBe(CREATED);
+    });
+    expectItems(items);
+  }
+
   beforeEach(() => {
     const initialCart = {};
     const app = createApp(initialCart);
@@ -30,7 +49,7 @@ describe("the API", () => {
     expect(items).toStrictEqual({});
   });
 
-  describe("has an add item endpoint", () => {
+  describe("has an add-item endpoint", () => {
 
     it("expects item key in json", async () => {
       const request = agent.post("/cart");
@@ -104,6 +123,22 @@ describe("the API", () => {
       });
       const items = await getItems(agent);
       expect(items).toStrictEqual({ "0": {price, title}});
+    });
+
+  });
+
+  describe("has a remove all items endpoint", () => {
+
+    it("removes all items", async () => {
+      const items = [
+        { title: "apple", price: 1},
+        { title: "orange", price: 2},
+        { title: "pear", price: 3}
+      ];
+      addAllToEmptyCart(items);
+      const result = await agent.delete("/cart");
+      expect(result.status).toBe(OK);
+      expectItems([]);
     });
 
   });
