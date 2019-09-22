@@ -36,20 +36,26 @@ function handleAddItem(
     return;
   }
   const title = req.body.item.title;
-  const priceString = req.body.item.price;
-    if (!title) {
+  const price = req.body.item.price;
+  if (!title) {
     badRequest(res, "title missing");
     return;
   }
-  if (!priceString) {
+  if (typeof title !== 'string') {
+    badRequest(res, "price is not a string");
+    return;
+  }
+  if (price === undefined || price === null) {
     badRequest(res, "price missing");
     return;
   }
-  if (!isNonNegativeIntegerString(priceString)) {
-    badRequest(res, "non-negative integer price expected");
+  if (typeof price !== 'number') {
+    badRequest(res, "price is not a number");
+  }
+  if (price < 0) {
+    badRequest(res, "negative price");
     return;
   }
-  const price = parseInt(priceString);
   const cartItem: CartItem = {
     title, price
   };

@@ -62,23 +62,48 @@ describe("the API", () => {
 
     it("expects item json to have title key", async () => {
       const request = agent.post("/cart");
-      request.send({ item: { price: "123" }});
+      request.send({ item: { price: 123 }});
+      const result = await request;
+      expect(result.status).toBe(BAD_REQUEST);
+    });
+
+    it("expects title to be a string", async () => {
+      const request = agent.post("/cart");
+      request.send({ item: { title: 345, price: 123 }});
+      const result = await request;
+      expect(result.status).toBe(BAD_REQUEST);
+    });
+
+    it("expects price to be a number", async () => {
+      const request = agent.post("/cart");
+      request.send({ item: { title: "apple", price: "123" }});
+      const result = await request;
+      expect(result.status).toBe(BAD_REQUEST);
+    });
+
+    it("expects price to be a positive number", async () => {
+      const request = agent.post("/cart");
+      request.send({ item: { title: "apple", price: -123 }});
       const result = await request;
       expect(result.status).toBe(BAD_REQUEST);
     });
 
     it("allows an item to be added", async () => {
       const request = agent.post("/cart");
-      request.send({ item: { title: "apple", price: "123" }});
+      const title = "apple";
+      const price = 123;
+      request.send({ item: { price, title }});
       const result = await request;
       expect(result.status).toBe(CREATED);
       expect(result.body).toStrictEqual({
         "id": 0,
         "item": {
-          "price": 123,
-          "title": "apple",
+          price,
+          title
         },
       });
+      const items = await getItems(agent);
+      expect(items).toStrictEqual({ "0": {price, title}});
     });
 
   });
