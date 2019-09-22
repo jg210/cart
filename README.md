@@ -19,6 +19,7 @@ npm start
 ```sh
 curl --verbose http://localhost:8080/cart | jq .
 curl --verbose -X DELETE http://localhost:8080/cart | jq .
+curl --verbose -X DELETE http://localhost:8080/cart/1 | jq .
 ```
 
 ## IDE

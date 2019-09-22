@@ -1,4 +1,8 @@
 import * as express from 'express';
+import {
+  BAD_REQUEST,
+  NOT_FOUND
+} from 'http-status-codes';
 
 type ItemId = number;
 
@@ -24,6 +28,10 @@ let cart: Cart = {
   }
 };
 
+function isValidIdString(idString: string): boolean {
+  return !!idString.match(/^[1-9]*[0-9]$/);
+}
+
 // JSON response listing all items in the cart.
 function cartJson(): CartJson {
   return {
@@ -43,11 +51,37 @@ function handleDeleteAll(res: express.Response): void {
   res.json({});
 }
 
+// TODO Test non-numeric deletion.
+// TODO Test deletion of item that is present.
+// TODO Test deletion of item that is absent.
+function handleItemDelete(
+    req: express.Request,
+    res: express.Response): void {
+  const idString = req.params.itemId;
+  if (!isValidIdString(idString)) {
+    res.status(BAD_REQUEST);
+    res.send(`invalid id: ${idString}`);
+    return;
+  }
+  const id = parseInt(idString);
+  const cartItem = cart[id];
+  res.json({
+    item: cartItem // express removes "item" property if cartItem is undefined
+  });
+  if (!cartItem) {
+    res.status(NOT_FOUND);
+  } else {
+    delete cart[id];
+  }
+}
+
 // Configure express server's routes.
 const router = express.Router();
 router.route('/')
   .get((_, res) => handleListAll(res))
   .delete((_, res) => handleDeleteAll(res));
+router.route('/:itemId')
+  .delete((req, res) => handleItemDelete(req, res));
 
 // Configure express server.
 const port = 8080;
@@ -57,4 +91,3 @@ app.use(prefix, router);
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
 });
-

@@ -9,6 +9,7 @@
 * Configure production build (with tsc).
 * eslint VSC plugin has stopped working.
 * Add route for /
+* Remove X-Powered-By HTTP headers from responses.
 * Design notes.
   - authentication.
   - CSRF protection.

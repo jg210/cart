@@ -9,6 +9,7 @@ module.exports =  {
     project: "./tsconfig.json"
   },
   rules:  {
-    semi: 2
+    "@typescript-eslint/explicit-function-return-type": 2,
+    "semi": 2
   }
 };
