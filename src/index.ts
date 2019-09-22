@@ -14,9 +14,18 @@ const cart = {
   }
 }
 
+// JSON response listing all items in the cart.
+function cartJson() {
+  return {
+    // Using "items" key here allows extra information to
+    // be added to the API later.
+    items: cart
+  }
+}
+
 const router = express.Router();
 
-router.route('/').get((_, res) => res.send(cart));
+router.route('/').get((_, res) => res.json(cartJson()));
 
 const app = express();
 app.use(prefix, router);
