@@ -9,5 +9,6 @@ module.exports =  {
     project: "./tsconfig.json"
   },
   rules:  {
+    semi: 2
   }
 };

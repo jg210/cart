@@ -7,7 +7,7 @@ interface CartItem {
   price: number;
 }
 
-type Cart = Record<ItemId,CartItem>
+type Cart = Record<ItemId,CartItem>;
 
 interface CartJson {
   items: Cart;
@@ -30,17 +30,17 @@ function cartJson(): CartJson {
     // Using "items" key here allows extra information to
     // be added to the API later.
     items: cart
-  }
+  };
 }
 
-function handleListAll(res: express.Response) {
-  return res.json(cartJson())
+function handleListAll(res: express.Response): void {
+  res.json(cartJson());
 }
 
-function handleDeleteAll(res: express.Response) {
+function handleDeleteAll(res: express.Response): void {
   cart = {};
   // Return empty JSON in case want to return extra information later.
-  return res.json({})
+  res.json({});
 }
 
 // Configure express server's routes.
