@@ -119,14 +119,14 @@ function handleItemDelete(
   }
   const id = parseInt(idString);
   const cartItem = cart[id];
-  res.json({
-    item: cartItem // express removes "item" property if cartItem is undefined
-  });
   if (!cartItem) {
     res.status(NOT_FOUND);
   } else {
     delete cart[id];
   }
+  res.json({
+    item: cartItem // express removes "item" property if cartItem is undefined
+  });
 }
 
 // Configure express server's routes.
