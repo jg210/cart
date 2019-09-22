@@ -4,10 +4,10 @@
 * Clear basket.
 * Remove item.
 * Optimization endpoint.
-* json() not send().
 * Check test coverage.
 * Configure more eslint rules.
 * Configure production build (with tsc).
+* eslint VSC plugin has stopped working.
 * Add route for /
 * Design notes.
   - authentication.
