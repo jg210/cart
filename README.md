@@ -18,6 +18,7 @@ npm start
 
 ```sh
 curl --verbose http://localhost:8080/cart | jq .
+curl --verbose -H "Content-Type: application/json" -d '{"item": {"title": "pumps", "price": "1999"}}' http://localhost:8080/cart
 curl --verbose -X DELETE http://localhost:8080/cart | jq .
 curl --verbose -X DELETE http://localhost:8080/cart/1 | jq .
 ```

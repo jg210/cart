@@ -3,6 +3,7 @@ import {
   BAD_REQUEST,
   NOT_FOUND
 } from 'http-status-codes';
+import * as _ from 'lodash';
 
 type ItemId = number;
 
@@ -27,9 +28,16 @@ let cart: Cart = {
     price: 298
   }
 };
+let nextId = findNextId(cart);
 
 function isValidIdString(idString: string): boolean {
   return !!idString.match(/^[1-9]*[0-9]$/);
+}
+
+function findNextId(cart: Cart) {
+  const ids = Object.keys(cart).map(key => parseInt(key));
+  const maxId = _.max(ids);
+  return (maxId === undefined) ? 0 : maxId + 1;
 }
 
 // JSON response listing all items in the cart.
@@ -43,6 +51,22 @@ function cartJson(): CartJson {
 
 function handleListAll(res: express.Response): void {
   res.json(cartJson());
+}
+
+function handleAddItem(
+    req: express.Request,
+    res: express.Response): void {
+  // TODO handle missing item in json.
+  const title = req.body.item.title;
+  const priceString = req.body.item.price;
+  const price = parseInt(priceString); // TODO handle parsing errors.
+  // TODO handle negative price.
+  const cartItem: CartItem = {
+    title, price
+  };
+  const id = nextId++;
+  cart[id] = cartItem;
+  res.json({ id });
 }
 
 function handleDeleteAll(res: express.Response): void {
@@ -79,6 +103,7 @@ function handleItemDelete(
 const router = express.Router();
 router.route('/')
   .get((_, res) => handleListAll(res))
+  .post((req, res) => handleAddItem(req, res))
   .delete((_, res) => handleDeleteAll(res));
 router.route('/:itemId')
   .delete((req, res) => handleItemDelete(req, res));
@@ -87,6 +112,7 @@ router.route('/:itemId')
 const port = 8080;
 const prefix = "/cart";
 const app = express();
+app.use(express.json()); // Parse requests as JSON.
 app.use(prefix, router);
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
