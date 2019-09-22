@@ -1,19 +1,5 @@
 import * as express from 'express';
 
-const port = 8080;
-const prefix = "/cart";
-
-let cart: Cart = {
-  1: {
-    title: "fork handles",
-    price: 999
-  },
-  2: {
-    title: "plug",
-    price: 298
-  }
-};
-
 type ItemId = number;
 
 interface CartItem {
@@ -26,6 +12,17 @@ type Cart = Record<ItemId,CartItem>
 interface CartJson {
   items: Cart;
 }
+
+let cart: Cart = {
+  1: {
+    title: "fork handles",
+    price: 999
+  },
+  2: {
+    title: "plug",
+    price: 298
+  }
+};
 
 // JSON response listing all items in the cart.
 function cartJson(): CartJson {
@@ -46,12 +43,15 @@ function handleDeleteAll(res: express.Response) {
   return res.json({})
 }
 
+// Configure express server's routes.
 const router = express.Router();
-
 router.route('/')
   .get((_, res) => handleListAll(res))
   .delete((_, res) => handleDeleteAll(res));
 
+// Configure express server.
+const port = 8080;
+const prefix = "/cart";
 const app = express();
 app.use(prefix, router);
 app.listen(port, () => {
