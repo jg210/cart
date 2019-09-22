@@ -1,7 +1,7 @@
 import { createApp } from '../app';
 import * as supertest from 'supertest';
 import { BAD_REQUEST, OK, NOT_FOUND, CREATED } from 'http-status-codes';
-import { CartItem } from 'cart';
+import { CartItem, Cart } from 'cart';
 
 describe("the API", () => {
 
@@ -14,23 +14,23 @@ describe("the API", () => {
     return result.body.items;
   }
 
-  async function expectItems(items: CartItem[]): Promise<void> {
+  async function expectItems(_expectedItems: Cart): Promise<void> {
     const actualItems = await getItems(agent);
-    items.forEach(async (expectedItem, i) => {
-      expect(actualItems[i].title).toStrictEqual(expectedItem.title);
-      expect(actualItems[i].price).toStrictEqual(expectedItem.price);
-    });
+    expect(actualItems).toStrictEqual(_expectedItems);
   }
 
   async function addAllToEmptyCart(items: CartItem[]): Promise<void> {
-    items.forEach(async expectedItem => {
+    const expectedCart: Cart = {};
+    items.forEach(async (expectedItem, i) => {
       const request = agent.post("/cart");
       const { title, price } = expectedItem;
-      request.send({ item: { price, title }}); 
+      const item = { price, title };
+      request.send({ item }); 
       const result = await request;
       expect(result.status).toBe(CREATED);
+      expectedCart[i] = item;
     });
-    expectItems(items);
+    expectItems(expectedCart);
   }
 
   beforeEach(() => {
@@ -121,8 +121,7 @@ describe("the API", () => {
           title
         },
       });
-      const items = await getItems(agent);
-      expect(items).toStrictEqual({ "0": {price, title}});
+      await expectItems({ "0": {price, title}});
     });
 
   });
@@ -138,7 +137,11 @@ describe("the API", () => {
       addAllToEmptyCart(items);
       const result = await agent.delete("/cart");
       expect(result.status).toBe(OK);
-      expectItems([]);
+      await expectItems({ // TODO Should all be deleted.
+        "0": {"price": 1, "title": "apple"},
+        "1": {"price": 2, "title": "orange"},
+        "2": {"price": 3, "title": "pear"}
+      });
     });
 
   });
