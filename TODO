@@ -1,12 +1,13 @@
-* Configure more eslint rules.
-* VSC IDE plugins.
 * Design API.
 * Add item.
+  - use app.route() to allowing chaining of future method handlers for each path.
 * List items.
 * Clear basket.
 * Remove item.
 * Optimization endpoint.
+* json() not send().
 * Check test coverage.
+* Configure more eslint rules.
 * Configure production build (with tsc).
 * Add route for /
 * Design notes.
