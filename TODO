@@ -1,3 +1,5 @@
+* Configure jest.
+* Add supertest.
 * Add item.
 * List items.
 * Clear basket.
