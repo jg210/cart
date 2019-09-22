@@ -1,12 +1,13 @@
 import { createApp } from '../app';
 import * as supertest from 'supertest';
 import { BAD_REQUEST, OK, NOT_FOUND, CREATED } from 'http-status-codes';
+import { CartItem } from 'cart';
 
 describe("the API", () => {
 
   let agent: supertest.SuperTest<supertest.Test>;
 
-  async function getItems(agent: supertest.SuperTest<supertest.Test>) {
+  async function getItems(agent: supertest.SuperTest<supertest.Test>): Promise<CartItem[]> {
     const result = await agent.get("/cart");
     expect(result.status).toBe(OK);
     expect(result.type).toEqual("application/json");
@@ -33,42 +34,42 @@ describe("the API", () => {
 
     it("expects item key in json", async () => {
       const request = agent.post("/cart");
-      request.send({})
+      request.send({});
       const result = await request;
       expect(result.status).toBe(BAD_REQUEST);
     });
 
     it("expects item json to have keys", async () => {
       const request = agent.post("/cart");
-      request.send({ item: {}})
+      request.send({ item: {}});
       const result = await request;
       expect(result.status).toBe(BAD_REQUEST);
     });
 
     it("expects item json to have keys", async () => {
       const request = agent.post("/cart");
-      request.send({ item: {}})
+      request.send({ item: {}});
       const result = await request;
       expect(result.status).toBe(BAD_REQUEST);
     });
 
     it("expects item json to have price key", async () => {
       const request = agent.post("/cart");
-      request.send({ item: { title: "apple" }})
+      request.send({ item: { title: "apple" }});
       const result = await request;
       expect(result.status).toBe(BAD_REQUEST);
     });
 
     it("expects item json to have title key", async () => {
       const request = agent.post("/cart");
-      request.send({ item: { price: "123" }})
+      request.send({ item: { price: "123" }});
       const result = await request;
       expect(result.status).toBe(BAD_REQUEST);
     });
 
     it("allows an item to be added", async () => {
       const request = agent.post("/cart");
-      request.send({ item: { title: "apple", price: "123" }})
+      request.send({ item: { title: "apple", price: "123" }});
       const result = await request;
       expect(result.status).toBe(CREATED);
       expect(result.body).toStrictEqual({
