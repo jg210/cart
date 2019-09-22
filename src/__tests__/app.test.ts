@@ -1,6 +1,5 @@
 import { createApp } from '../app';
 import * as supertest from 'supertest';
-import { OK } from 'http-status-codes';
 
 describe("the API", () => {
 
@@ -11,7 +10,21 @@ describe("the API", () => {
     agent = supertest.agent(app); 
   });
 
-  it("can be started", () => {
-    agent.get("/cart").expect(OK, {});
+  it("contains default items", async () => {
+    const result = await agent.get("/cart")
+    expect(result.status).toBe(200);
+    expect(result.type).toEqual("application/json");
+    expect(result.body).toStrictEqual({
+      "items": {
+        "1": {
+          "price": 999,
+           "title": "fork handles"
+          },
+        "2": {
+          "price": 298,
+          "title": "plug"
+        }
+      }
+    });
   });
 });
