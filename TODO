@@ -1,6 +1,5 @@
 * Design API.
 * Add item.
-  - use app.route() to allowing chaining of future method handlers for each path.
 * List items.
 * Clear basket.
 * Remove item.
