@@ -1,23 +1,18 @@
 import * as express from 'express';
 import {
-  BAD_REQUEST,
   NOT_FOUND,
   CREATED
 } from 'http-status-codes';
-import * as _ from 'lodash';
-
-type ItemId = number;
-
-interface CartItem {
-  title: string;
-  price: number;
-}
-
-type Cart = Record<ItemId,CartItem>;
-
-interface CartJson {
-  items: Cart;
-}
+import {
+  Cart,
+  CartItem,
+  findNextId,
+  isValidIdString
+} from './cart';
+import {
+  badRequest,
+  isNonNegativeIntegerString
+} from './util';
 
 let cart: Cart = {
   1: {
@@ -29,40 +24,15 @@ let cart: Cart = {
     price: 298
   }
 };
+let nextId = findNextId(cart);
 
-function isNonNegativeIntegerString(string: string): boolean {
-  return !!string.match(/^[1-9]*[0-9]$/);
-}
-
-function isValidIdString(idString: string): boolean {
-  return isNonNegativeIntegerString(idString);
-}
-
-function findNextId(cart: Cart): number {
-  const ids = Object.keys(cart).map(key => parseInt(key));
-  const maxId = _.max(ids);
-  return (maxId === undefined) ? 0 : maxId + 1;
-}
-
-// JSON response listing all items in the cart.
-function cartJson(): CartJson {
-  return {
+function handleListAll(res: express.Response): void {
+  res.json({
     // Using "items" key here allows extra information to
     // be added to the API later.
     items: cart
-  };
+  });
 }
-
-function badRequest(res: express.Response, message: string): void {
-  res.status(BAD_REQUEST);
-  res.send(message);
-}
-
-function handleListAll(res: express.Response): void {
-  res.json(cartJson());
-}
-
-let nextId = findNextId(cart);
 
 function handleAddItem(
     req: express.Request,
