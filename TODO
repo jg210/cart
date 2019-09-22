@@ -1,18 +1,25 @@
-* Reimplement cart database using a class wrapping a Map.
+* Reimplement cart database using a class wrapping an ES6 Map.
+  - database operations would be encapsulated
+  - database could be replaced with real database
+  - would avoid problems with string/number typing of ids
 * Test for specific HTTP-response error messages in app.test.js.
-* Optimization endpoint.
-  - knapsack problem.
-  - negate the weight since standard algorithms maximize value 
-* Configure production build (with tsc).
-* eslint VSC plugin has stopped working.
-* Add route for / redirecting to /cart.
-* Implement per-item GET requests.
-* Remove X-Powered-By HTTP headers from responses.
+  - otherwise, tests for error cases aren't robust.
 * Design notes.
-  - authentication.
-  - CSRF protection.
   - database choice.
-  - more testing?
   - deployment pipeline.
   - scalability.
+  - ...
+* Optimization endpoint.
+  - knapsack problem.
+  - negate the weight since standard algorithms maximize value.
+* More unit tests for HTTP headers.
+* Implement per-item GET requests.
+* Authentication and per-account carts.
+* CSRF protection.
+* CORS headers?
+* Configure production build (with tsc).
+* Remove X-Powered-By HTTP headers from responses.
+* eslint VSC plugin has stopped working.
+* Load testing.
+* Add route for / redirecting to /cart.
 
