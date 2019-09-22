@@ -3,7 +3,7 @@ import * as express from 'express';
 const port = 8080;
 const prefix = "/cart";
 
-const cart = {
+const cart: Cart = {
   1: {
     title: "fork handles",
     price: 999
@@ -12,10 +12,23 @@ const cart = {
     title: "plug",
     price: 298
   }
+};
+
+type ItemId = number;
+
+interface CartItem {
+  title: string;
+  price: number;
+}
+
+type Cart = Record<ItemId,CartItem>
+
+interface CartJson {
+  items: Cart;
 }
 
 // JSON response listing all items in the cart.
-function cartJson() {
+function cartJson(): CartJson {
   return {
     // Using "items" key here allows extra information to
     // be added to the API later.
