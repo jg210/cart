@@ -4,7 +4,7 @@ A shopping-cart API implemented using [express](https://expressjs.com/) and [Typ
 
 * Install [nodenv](https://github.com/nodenv/nodenv#installation) and [node-build](https://github.com/nodenv/node-build#installation) (or use any other way to put correct version of node on PATH).
 
-* Install jq package using homebrew, apt-get, yum etc. (optional, but useful).
+* Optionally, install jq package using homebrew, apt-get, yum etc. This is not required, but is useful for making the json returned by the API readable.
 
 * Run this to install the right version of node and start the cart API server:
 
@@ -17,10 +17,10 @@ npm start
 * To access the API:
 
 ```sh
-curl --verbose http://localhost:8080/cart | jq .
-curl --verbose -H "Content-Type: application/json" -d '{"item": {"title": "pumps", "price": 1999}}' http://localhost:8080/cart
-curl --verbose -X DELETE http://localhost:8080/cart | jq .
-curl --verbose -X DELETE http://localhost:8080/cart/1 | jq .
+curl --verbose http://localhost:8080/cart # list all
+curl --verbose -H "Content-Type: application/json" -d '{"item": {"title": "pumps", "price": 1999}}' http://localhost:8080/cart # add item
+curl --verbose -X DELETE http://localhost:8080/cart # delete all
+curl --verbose -X DELETE http://localhost:8080/cart/1 # delete by id
 ```
 
 ## IDE
