@@ -10,6 +10,7 @@ module.exports =  {
   },
   rules:  {
     "@typescript-eslint/explicit-function-return-type": 2,
+    "@typescript-eslint/no-use-before-define": 0,
     "semi": 2
   }
 };

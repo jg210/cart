@@ -1,7 +1,8 @@
 import * as express from 'express';
 import {
   BAD_REQUEST,
-  NOT_FOUND
+  NOT_FOUND,
+  CREATED
 } from 'http-status-codes';
 import * as _ from 'lodash';
 
@@ -91,7 +92,12 @@ function handleAddItem(
   };
   const id = nextId++;
   cart[id] = cartItem;
-  res.json({ id });
+  res.status(CREATED);
+  res.location(`${prefix}/${id}`); // TODO handle GET for these item URLs.
+  res.json({
+    id,
+    item: cartItem
+  });
 }
 
 function handleDeleteAll(res: express.Response): void {
