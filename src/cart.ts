@@ -12,10 +12,13 @@ export interface CartJson {
   items: Cart;
 }
 
-export function findNextId(cart: Cart): number {
+export function* idGenerator(cart: Cart): IterableIterator<number> {
   const ids = Object.keys(cart).map(key => parseInt(key));
   const maxId = _.max(ids);
-  return (maxId === undefined) ? 0 : maxId + 1;
+  let nextId = (maxId === undefined) ? 0 : maxId + 1;
+  while (true) {
+    yield nextId++;
+  }
 }
 
 export function isValidIdString(idString: string): boolean {
