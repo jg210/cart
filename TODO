@@ -1,14 +1,12 @@
-* Test for specific error messages in app.test.js.
-* List items.
-* Clear basket.
-* Remove item.
+* Reimplement cart database using a class wrapping a Map.
+* Test for specific HTTP-response error messages in app.test.js.
 * Optimization endpoint.
-* Check test coverage.
+  - knapsack problem.
+  - negate the weight since standard algorithms maximize value 
 * Configure production build (with tsc).
 * eslint VSC plugin has stopped working.
 * Add route for / redirecting to /cart.
 * Implement per-item GET requests.
-* Refactor cart database into a class.
 * Remove X-Powered-By HTTP headers from responses.
 * Design notes.
   - authentication.

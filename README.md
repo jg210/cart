@@ -26,5 +26,3 @@ curl --verbose -X DELETE http://localhost:8080/cart/1 | jq .
 ## IDE
 
 * [Visual Studio Code](https://code.visualstudio.com/).
-
-## Design
