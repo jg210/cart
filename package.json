@@ -30,7 +30,7 @@
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
     "eslint": "eslint --ext .ts src",
-    "test": "ts-jest",
+    "test": "jest",
     "presub": "npm run eslint && npm test"
   },
   "author": "",

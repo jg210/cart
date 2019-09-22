@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express = require('express');
 import {
   NOT_FOUND,
   CREATED
@@ -92,7 +92,7 @@ function handleItemDelete(
   });
 }
 
-export function createApp() {
+export function createApp(): express.Express {
 
   const cart: Cart = {
     1: {
