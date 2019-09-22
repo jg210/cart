@@ -7,7 +7,8 @@ import {
   Cart,
   CartItem,
   isValidIdString,
-  idGenerator
+  idGenerator,
+  ItemId
 } from './cart';
 import {
   badRequest,
@@ -69,14 +70,13 @@ function handleAddItem(
 }
 
 function handleDeleteAll(cart: Cart, res: express.Response): void {
-  cart = {}; // TODO fix.
+  for (const id of Object.keys(cart)) {
+    delete cart[id as unknown as ItemId]; // TODO Turn cart into class wrapping a Map.
+  }
   // Return empty JSON in case want to return extra information later.
   res.json({});
 }
 
-// TODO Test non-numeric deletion.
-// TODO Test deletion of item that is present.
-// TODO Test deletion of item that is absent.
 function handleItemDelete(
   cart: Cart,
     req: express.Request,

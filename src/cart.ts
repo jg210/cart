@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { isNonNegativeIntegerString } from './util';
 
-type ItemId = number;
+export type ItemId = number;
 export interface CartItem {
   title: string;
   price: number;

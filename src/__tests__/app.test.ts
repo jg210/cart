@@ -137,11 +137,7 @@ describe("the API", () => {
       addAllToEmptyCart(items);
       const result = await agent.delete("/cart");
       expect(result.status).toBe(OK);
-      await expectItems({ // TODO Should all be deleted.
-        "0": {"price": 1, "title": "apple"},
-        "1": {"price": 2, "title": "orange"},
-        "2": {"price": 3, "title": "pear"}
-      });
+      await expectItems({});
     });
 
   });
