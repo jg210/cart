@@ -5,6 +5,8 @@
 * More unit tests for HTTP headers.
 * Implement per-item GET requests.
 * Authentication and per-account carts.
+* Item limit.
+* Item title length limit.
 * CSRF protection.
 * CORS headers?
 * Configure production build (with tsc).
