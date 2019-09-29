@@ -1,5 +1,4 @@
 import { createApp } from "./app";
-import { Cart } from 'cart';
 
 const app = createApp([
   {

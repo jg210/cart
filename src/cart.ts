@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 import { isNonNegativeIntegerString } from './util';
 
 export type ItemId = number;
@@ -23,7 +21,7 @@ export class Cart {
   }
 
   listAll(): CartJson {
-    const items: Record<ItemId,CartItem> = {}
+    const items: Record<ItemId,CartItem> = {};
     for (const [id, item] of this.items) {
       items[id] = item;
     }
@@ -38,7 +36,7 @@ export class Cart {
     return id;
   }
 
-  deleteAll() {
+  deleteAll(): void {
     this.items.clear();
   }
 
@@ -48,15 +46,6 @@ export class Cart {
     return item;
   }
 
-}
-
-export function* idGenerator(cart: Cart): IterableIterator<number> {
-  const ids = Object.keys(cart).map(key => parseInt(key));
-  const maxId = _.max(ids);
-  let nextId = (maxId === undefined) ? 0 : maxId + 1;
-  while (true) {
-    yield nextId++;
-  }
 }
 
 export function isValidIdString(idString: string): boolean {

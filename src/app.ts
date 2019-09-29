@@ -6,14 +6,11 @@ import {
 import {
   Cart,
   CartItem,
-  isValidIdString,
-  idGenerator,
-  ItemId
+  isValidIdString
 } from './cart';
 import {
   badRequest,
 } from './util';
-import * as _ from 'lodash';
 
 const prefix = "/cart";
 

@@ -1,7 +1,7 @@
 import { createApp } from '../app';
 import * as supertest from 'supertest';
 import { BAD_REQUEST, OK, NOT_FOUND, CREATED } from 'http-status-codes';
-import { CartItem, Cart, ItemId } from 'cart';
+import { CartItem, ItemId } from 'cart';
 
 describe("the API", () => {
 
