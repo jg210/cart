@@ -1,13 +1,6 @@
+* eslint VSC plugin has stopped working.
 * Test for specific HTTP-response error messages in app.test.js.
   - otherwise, tests for error cases aren't robust.
-* Design notes.
-  - database choice.
-  - deployment pipeline.
-  - scalability.
-  - ...
-* Optimization endpoint.
-  - knapsack problem.
-  - negate the weight since standard algorithms maximize value.
 * More unit tests for HTTP headers.
 * Implement per-item GET requests.
 * Authentication and per-account carts.
@@ -15,7 +8,6 @@
 * CORS headers?
 * Configure production build (with tsc).
 * Remove X-Powered-By HTTP headers from responses.
-* eslint VSC plugin has stopped working.
 * Load testing.
 * Add route for / redirecting to /cart.
 
