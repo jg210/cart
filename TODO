@@ -1,4 +1,5 @@
 * eslint VSC plugin has stopped working.
+* unit tests for cart.js.
 * Test for specific HTTP-response error messages in app.test.js.
   - otherwise, tests for error cases aren't robust.
 * More unit tests for HTTP headers.
