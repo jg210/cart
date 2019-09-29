@@ -1,5 +1,3 @@
-import { isNonNegativeIntegerString } from './util';
-
 export type ItemId = number;
 export interface CartItem {
   title: string;
@@ -46,8 +44,4 @@ export class Cart {
     return item;
   }
 
-}
-
-export function isValidIdString(idString: string): boolean {
-  return isNonNegativeIntegerString(idString);
 }

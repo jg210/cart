@@ -6,10 +6,10 @@ import {
 import {
   Cart,
   CartItem,
-  isValidIdString
 } from './cart';
 import {
   badRequest,
+  isNonNegativeIntegerString
 } from './util';
 
 const prefix = "/cart";
@@ -98,4 +98,8 @@ export function createApp(intialItems: CartItem[]): express.Express {
   app.use(express.json()); // Parse requests as JSON.
   app.use(prefix, router);
   return app;
+}
+
+export function isValidIdString(idString: string): boolean {
+  return isNonNegativeIntegerString(idString);
 }
