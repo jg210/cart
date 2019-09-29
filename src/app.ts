@@ -18,16 +18,11 @@ import * as _ from 'lodash';
 const prefix = "/cart";
 
 function handleListAll(cart: Cart, res: express.Response): void {
-  res.json({
-    // Using "items" key here allows extra information to
-    // be added to the API later.
-    items: cart
-  });
+  res.json(cart.listAll());
 }
 
 function handleAddItem(
     cart: Cart,
-    idIterator: Iterator<number>,
     req: express.Request,
     res: express.Response): void {
   const item = req.body.item;
@@ -59,8 +54,7 @@ function handleAddItem(
   const cartItem: CartItem = {
     title, price
   };
-  const id = idIterator.next().value;
-  cart[id] = cartItem;
+  const id = cart.addItem(cartItem);
   res.status(CREATED);
   res.location(`${prefix}/${id}`); // TODO handle GET for these item URLs.
   res.json({
@@ -70,9 +64,7 @@ function handleAddItem(
 }
 
 function handleDeleteAll(cart: Cart, res: express.Response): void {
-  for (const id of Object.keys(cart)) {
-    delete cart[id as unknown as ItemId]; // TODO Turn cart into class wrapping a Map.
-  }
+  cart.deleteAll();
   // Return empty JSON in case want to return extra information later.
   res.json({});
 }
@@ -87,24 +79,21 @@ function handleItemDelete(
     return;
   }
   const id = parseInt(idString);
-  const cartItem = cart[id];
+  const cartItem = cart.deleteItem(id);
   if (!cartItem) {
     res.status(NOT_FOUND);
-  } else {
-    delete cart[id];
   }
   res.json({
     item: cartItem // express removes "item" property if cartItem is undefined
   });
 }
 
-export function createApp(intialCart: Cart): express.Express {
-  const cart = _.cloneDeep(intialCart);
-  const idIterator = idGenerator(cart);
+export function createApp(intialItems: CartItem[]): express.Express {
+  const cart = new Cart(intialItems);
   const router = express.Router();
   router.route('/')
     .get((_, res) => handleListAll(cart, res))
-    .post((req, res) => handleAddItem(cart, idIterator, req, res))
+    .post((req, res) => handleAddItem(cart, req, res))
     .delete((_, res) => handleDeleteAll(cart, res));
   router.route('/:itemId')
     .delete((req, res) => handleItemDelete(cart, req, res));

@@ -1,7 +1,7 @@
 import { createApp } from '../app';
 import * as supertest from 'supertest';
 import { BAD_REQUEST, OK, NOT_FOUND, CREATED } from 'http-status-codes';
-import { CartItem, Cart } from 'cart';
+import { CartItem, Cart, ItemId } from 'cart';
 
 describe("the API", () => {
 
@@ -14,13 +14,13 @@ describe("the API", () => {
     return result.body.items;
   }
 
-  async function expectItems(_expectedItems: Cart): Promise<void> {
+  async function expectItems(_expectedItems: Record<ItemId,CartItem>): Promise<void> {
     const actualItems = await getItems(agent);
     expect(actualItems).toStrictEqual(_expectedItems);
   }
 
   async function addAllToEmptyCart(items: CartItem[]): Promise<void> {
-    const expectedCart: Cart = {};
+    const expectedCart: Record<ItemId,CartItem> = {};
     items.forEach(async (expectedItem, i) => {
       const request = agent.post("/cart");
       const { title, price } = expectedItem;
@@ -34,7 +34,7 @@ describe("the API", () => {
   }
 
   beforeEach(() => {
-    const initialCart = {};
+    const initialCart: CartItem[] = [];
     const app = createApp(initialCart);
     agent = supertest.agent(app); 
   });
