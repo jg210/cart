@@ -1,7 +1,3 @@
-* Reimplement cart database using a class wrapping an ES6 Map.
-  - database operations would be encapsulated
-  - database could be replaced with real database
-  - would avoid problems with string/number typing of ids
 * Test for specific HTTP-response error messages in app.test.js.
   - otherwise, tests for error cases aren't robust.
 * Design notes.

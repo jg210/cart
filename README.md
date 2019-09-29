@@ -1,4 +1,4 @@
-A shopping-cart API implemented using [express](https://expressjs.com/) and [Typescript](https://www.typescriptlang.org/).
+A shopping-cart API implemented using [express](https://expressjs.com/) and [Typescript](https://www.typescriptlang.org/). Items are persisted in memory.
 
 ## Build Instructions
 
@@ -24,6 +24,12 @@ curl --verbose -X DELETE http://localhost:8080/cart/1 # delete by id
 ```
 
 * To use jq to pretty print the output from curl, append `| jq .` to the above commands.
+
+## Unit Tests
+
+```
+npm test
+```
 
 ## IDE
 
