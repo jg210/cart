@@ -1,5 +1,7 @@
 A shopping-cart API implemented using [express](https://expressjs.com/) and [Typescript](https://www.typescriptlang.org/). Items are persisted in memory.
 
+[![CircleCI](https://circleci.com/gh/jg210/cart.svg?style=svg)](https://circleci.com/gh/jg210/cart)
+
 ## Build Instructions
 
 * Install [nodenv](https://github.com/nodenv/nodenv#installation) and [node-build](https://github.com/nodenv/node-build#installation) (or use any other way to put correct version of node on PATH).
