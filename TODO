@@ -5,6 +5,7 @@
 * More unit tests for HTTP headers.
 * Implement per-item GET requests.
 * Authentication and per-account carts.
+* request npm module has been deprecated (project is in maintainance mode).
 * Item limit.
 * Item title length limit.
 * CSRF protection.
