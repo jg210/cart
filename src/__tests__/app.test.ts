@@ -58,9 +58,9 @@ describe("the API", () => {
       expect(result.status).toBe(BAD_REQUEST);
     });
 
-    it("expects item json to have keys", async () => {
+    it("expects item json to be an Object", async () => {
       const request = agent.post("/cart");
-      request.send({ item: {}});
+      request.send({ item: "not an object"});
       const result = await request;
       expect(result.status).toBe(BAD_REQUEST);
     });
