@@ -25,7 +25,7 @@ curl --verbose -X DELETE http://localhost:8080/cart # delete all
 curl --verbose -X DELETE http://localhost:8080/cart/1 # delete by id
 ```
 
-* To use jq to pretty print the output from curl, append `| jq .` to the above commands.
+* To use [jq](https://jqplay.org/) to pretty print the output from curl, append `| jq .` to the above commands.
 
 ## Unit Tests
 
