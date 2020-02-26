@@ -29,6 +29,8 @@ curl --verbose -X DELETE http://localhost:8080/cart/1 # delete by id
 
 ## Unit Tests
 
+Unit tests use [jest](https://jestjs.io/) and (for HTTP testing) [supertest](https://github.com/visionmedia/supertest). They can be run locally using:
+
 ```
 npm test
 ```
